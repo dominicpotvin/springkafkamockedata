@@ -34,7 +34,7 @@ public class ScheduledTasks {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Scheduled(fixedRate = 1000) // Toutes les 5 secondes
+    @Scheduled(fixedRate = 5000) // Toutes les 5 secondes
     public void sendJsonFile() {
         try {
             String content = JsonFileReader.readJsonFile(FILE_PREFIX + fileIndex + FILE_SUFFIX);
