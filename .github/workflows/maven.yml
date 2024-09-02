@@ -27,20 +27,22 @@ jobs:
   deploy:
     needs: build  # This ensures the deployment job runs only after the build job succeeds
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
         with:
           version: 'latest'
+
       - name: Configure KUBECONFIG
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG_CONTENTS }}
-        run: |
-          mkdir -p $HOME/.kube
-          echo "${KUBECONFIG}" > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
+        run: echo "${KUBECONFIG}" > $HOME/.kube/config
+
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f kubernetes/springkafkamockdata-deployment.yaml
-          kubectl apply -f kubernetes/springkafkamockdata-service.yaml
+          kubectl apply -f Kubernetes/springkafkamockdata-deployment.yaml
+          kubectl apply -f Kubernetes/springkafkamockdata-service.yaml
+  
