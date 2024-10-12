@@ -45,9 +45,8 @@ jobs:
 
       - name: Configure KUBECONFIG
         env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG_CONTENTS }}
+          KUBECONFIG: ${{ secrets.KUBECONFIG_CONTENTS }}
         run: echo "${KUBECONFIG}" > $HOME/.kube/config
-
 
       - name: Deploy to Kubernetes
         run: |
