@@ -37,8 +37,11 @@ jobs:
         with:
           version: 'latest'
 
-      - name: Create .kube directory
-        run: mkdir -p $HOME/.kube
+      - name: Create .kube directory if it doesn't exist
+        run: |
+          if (-not (Test-Path -Path $HOME/.kube)) {
+            mkdir -p $HOME/.kube
+          }
 
       - name: Configure KUBECONFIG
         env:
