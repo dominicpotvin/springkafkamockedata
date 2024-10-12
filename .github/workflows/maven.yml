@@ -43,10 +43,11 @@ jobs:
             mkdir -p $HOME/.kube
           }
 
-      - name: Configure KUBECONFIG
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG_CONTENTS }}
-        run: echo "${KUBECONFIG}" > $HOME/.kube/config
+- name: Configure KUBECONFIG
+  env:
+    KUBECONFIG: ${{ secrets.KUBECONFIG_CONTENTS }}
+  run: echo "${KUBECONFIG}" > $HOME/.kube/config
+
 
       - name: Deploy to Kubernetes
         run: |
