@@ -8,5 +8,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8087 # Cela doit correspondre au port de votre application à l'intérieur du conteneur
-  type: LoadBalancer # Vous pouvez choisir NodePort ou ClusterIP en fonction de vos besoins
+      targetPort: 8087 # Correspond au port de l'application dans le pod
+  type: ClusterIP
