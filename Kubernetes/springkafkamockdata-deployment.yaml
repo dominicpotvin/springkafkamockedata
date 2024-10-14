@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: springkafkamockdata
-  labels:
-    app: springkafkamockdata
 spec:
   replicas: 1
   selector:
@@ -16,9 +14,6 @@ spec:
     spec:
       containers:
       - name: springkafkamockdata
-        image: doomthedocker/springkafkamockdata:latest # Utilisez l'image que vous avez poussée
+        image: doomthedocker/springkafkamockdata:latest  # Assure-toi que ce chemin est correct
         ports:
-        - containerPort: 8087 # Assurez-vous que cela correspond au port configuré dans votre application
-        env:
-        - name: SPRING_PROFILES_ACTIVE
-          value: "default" # Ajustez selon vos besoins
+        - containerPort: 8087
