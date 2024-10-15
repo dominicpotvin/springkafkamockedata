@@ -76,14 +76,15 @@ resources: {}
   #   cpu: 100m
 #   memory: 128Mi
 
-livenessProbe:
-  httpGet:
-    path: /actuator/health  # Utilise ce chemin si Spring Boot expose Actuator
-    port: http
-readinessProbe:
-  httpGet:
-    path: /actuator/health  # Utilise ce chemin pour la readiness si Actuator est utilisé
-    port: http
+# livenessProbe:
+#   httpGet:
+#     path: /actuator/health
+#     port: http
+# readinessProbe:
+#   httpGet:
+#     path: /actuator/health
+#     port: http
+
 
 autoscaling:
   enabled: false
