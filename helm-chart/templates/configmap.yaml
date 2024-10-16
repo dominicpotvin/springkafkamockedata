@@ -14,6 +14,9 @@ data:
           bootstrap-servers: {{ .Values.kafka.bootstrapServers }}
           key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
           value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      admin:
+        properties:
+          bootstrap.servers: {{ .Values.kafka.bootstrapServers }}
     server:
       port: {{ .Values.service.port }}
   {{- with .Values.configMap.extraConfig }}
