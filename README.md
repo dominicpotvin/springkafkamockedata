@@ -15,16 +15,19 @@ Ce projet est une application Spring Boot qui utilise Kafka pour générer et en
 - Helm
 
 ## Image Docker
-L'image Docker de ce projet est disponible sur Docker Hub :
-   ```bash
-  doomthedocker/springkafkamockdata
-   ```
 
-## Pour récupérer l'image :
-   ```bash
-  docker pull doomthedocker/springkafkamockdata:latest
-   ```
+L'image Docker de ce projet est disponible sur Docker Hub :
+
+```bash
+doomthedocker/springkafkamockdata
+```
+
+Pour récupérer l'image :
+
+```bash
 docker pull doomthedocker/springkafkamockdata:latest
+```
+
 ## Configuration
 
 L'application utilise des profils Spring pour gérer différents environnements :
@@ -50,8 +53,8 @@ Les paramètres pour l'environnement Kubernetes sont configurés dans `applicati
 
 ### Dans Docker
 
-1. Construisez l'image Docker : `docker build -t springkafkamockdata:latest .`
-2. Exécutez le conteneur : `docker run -p 8087:8087 -e SPRING_PROFILES_ACTIVE=local springkafkamockdata:latest`
+1. Récupérez l'image : `docker pull doomthedocker/springkafkamockdata:latest`
+2. Exécutez le conteneur : `docker run -p 8087:8087 -e SPRING_PROFILES_ACTIVE=local doomthedocker/springkafkamockdata:latest`
 
 ### Dans Kubernetes avec Helm
 
@@ -92,6 +95,16 @@ Pour surveiller les logs de l'application dans Kubernetes :
 ```bash
 kubectl logs -f <nom-du-pod> -n develop
 ```
+
+## Déploiement vers Docker Hub
+
+Pour déployer une nouvelle version de l'image vers Docker Hub, utilisez le script `deploy-to-dockerhub.sh` :
+
+1. Assurez-vous d'être connecté à Docker Hub : `docker login`
+2. Rendez le script exécutable : `chmod +x deploy-to-dockerhub.sh`
+3. Exécutez le script : `./deploy-to-dockerhub.sh`
+
+Ce script construira le projet, créera l'image Docker, la taguera avec la version actuelle et "latest", puis la poussera vers Docker Hub.
 
 ## Contribution
 
