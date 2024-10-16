@@ -14,6 +14,17 @@ Ce projet est une application Spring Boot qui utilise Kafka pour générer et en
 - Kubernetes
 - Helm
 
+## Image Docker
+L'image Docker de ce projet est disponible sur Docker Hub :
+   ```bash
+  doomthedocker/springkafkamockdata
+   ```
+
+## Pour récupérer l'image :
+   ```bash
+  docker pull doomthedocker/springkafkamockdata:latest
+   ```
+docker pull doomthedocker/springkafkamockdata:latest
 ## Configuration
 
 L'application utilise des profils Spring pour gérer différents environnements :
