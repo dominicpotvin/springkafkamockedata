@@ -1,0 +1,31 @@
+replicaCount: 1
+
+image:
+  repository: [VOTRE_DOCKER_HUB_USERNAME]/springkafkamockdata
+  tag: "0.0.4-SNAPSHOT"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8087
+
+kafka:
+  bootstrapServers: "kafka.develop.svc.cluster.local:9092"
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+env:
+  - name: SPRING_KAFKA_PRODUCER_BOOTSTRAP-SERVERS
+    value: "kafka.develop.svc.cluster.local:9092"
+
+configMap:
+  extraConfig: {}
+  # Vous pouvez ajouter ici des configurations supplémentaires
+  # par exemple:
+  # myCustomConfig: value

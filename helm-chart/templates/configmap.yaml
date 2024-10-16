@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "springkafkamockdata.fullname" . }}-config
+  labels:
+    {{- include "springkafkamockdata.labels" . | nindent 4 }}
+data:
+  application.yml: |-
+    spring:
+      kafka:
+        producer:
+          bootstrap-servers: {{ .Values.kafka.bootstrapServers }}
+          key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+          value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    server:
+      port: {{ .Values.service.port }}
+  {{- with .Values.configMap.extraConfig }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}

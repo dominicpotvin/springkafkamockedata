@@ -21,6 +21,13 @@ Assurez-vous d'avoir Kafka en cours d'exécution sur votre machine. Vous pouvez 
 2. Naviguez vers le répertoire du projet : `cd nom_du_projet`
 3. Exécutez le projet avec Maven : `mvn spring-boot:run`
 
+# l installation a partir du depo dockerhub
+- helm-chart
+- helm install springkafkamockdata ./springkafkamockdata -n default
+- si mettre a jour le chart 
+- helm upgrade springkafkamockdata ./springkafkamockdata -n default
+
+
 ## Comment Utiliser l'Application
 
 L'application expose un endpoint POST à `/api/sensor/publish` qui accepte un objet `SensorData` en JSON. Lorsqu'une requête est envoyée à cet endpoint, l'objet `SensorData` est envoyé à un sujet Kafka.
