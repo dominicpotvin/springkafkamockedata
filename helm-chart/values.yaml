@@ -1,13 +1,21 @@
 replicaCount: 1
 
 image:
-  repository: [VOTRE_DOCKER_HUB_USERNAME]/springkafkamockdata
-  tag: "0.0.4-SNAPSHOT"
-  pullPolicy: IfNotPresent
+  repository: doomthedocker/springkafkamockdata
+  tag: "latest"
+  pullPolicy: Always
 
 service:
   type: ClusterIP
   port: 8087
+
+serviceAccount:
+  # Si vous voulez que Helm crée un compte de service, laissez cette valeur sur "true"
+  create: true
+  name: ""  # Si vous voulez spécifier un nom personnalisé, sinon Helm générera un nom basé sur la release
+
+springProfiles:
+  active: kubernetes
 
 kafka:
   bootstrapServers: "kafka.develop.svc.cluster.local:9092"
@@ -21,11 +29,28 @@ resources:
     memory: 256Mi
 
 env:
-  - name: SPRING_KAFKA_PRODUCER_BOOTSTRAP-SERVERS
-    value: "kafka.develop.svc.cluster.local:9092"
+  - name: SPRING_PROFILES_ACTIVE
+    value: "kubernetes"
 
 configMap:
   extraConfig: {}
   # Vous pouvez ajouter ici des configurations supplémentaires
   # par exemple:
   # myCustomConfig: value
+
+ingress:
+  enabled: false  # Changez cette valeur à "true" si vous souhaitez activer l'ingress
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+autoscaling:
+  enabled: false  # Activez en "true" si vous voulez utiliser l'autoscaling
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+

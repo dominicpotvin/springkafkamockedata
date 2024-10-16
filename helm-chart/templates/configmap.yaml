@@ -7,6 +7,8 @@ metadata:
 data:
   application.yml: |-
     spring:
+      profiles:
+        active: {{ .Values.springProfiles.active }}
       kafka:
         producer:
           bootstrap-servers: {{ .Values.kafka.bootstrapServers }}

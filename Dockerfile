@@ -11,4 +11,4 @@ COPY target/springkafkamockdata-*.jar app.jar
 EXPOSE 8087
 
 # Commande pour lancer l'application avec profil configurable
-ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=${SPRING_PROFILES_ACTIVE:local}"]
+ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=${SPRING_PROFILES_ACTIVE:kubernetes}"]
