@@ -1,36 +1,86 @@
-# Nom du Projet
+# SpringKafkaMockData
 
 ## Description
 
-Ce projet est une application Spring Boot qui utilise Kafka pour envoyer et recevoir des messages. Les messages sont des objets `SensorData` qui sont sérialisés en JSON avant d'être envoyés à Kafka.
+Ce projet est une application Spring Boot qui utilise Kafka pour générer et envoyer des données de capteurs simulées. Les messages sont des objets `SensorData` sérialisés en JSON avant d'être envoyés à Kafka.
 
 ## Technologies Utilisées
 
-- Java
+- Java 17
 - Spring Boot
 - Apache Kafka
 - Maven
+- Docker
+- Kubernetes
+- Helm
 
 ## Configuration
 
-Assurez-vous d'avoir Kafka en cours d'exécution sur votre machine. Vous pouvez modifier les paramètres de Kafka dans le fichier `application.yml`.
+L'application utilise des profils Spring pour gérer différents environnements :
+
+- `local` : pour le développement local
+- `kubernetes` : pour le déploiement dans un cluster Kubernetes
+
+### Configuration Locale
+
+Assurez-vous d'avoir Kafka en cours d'exécution sur votre machine. Les paramètres de connexion par défaut sont configurés dans `application-local.yml`.
+
+### Configuration Kubernetes
+
+Les paramètres pour l'environnement Kubernetes sont configurés dans `application-kubernetes.yml`.
 
 ## Comment Exécuter le Projet
 
-1. Clonez le dépôt : `git clone https://github.com/dominicpotvin/nom_du_projet.git`
-2. Naviguez vers le répertoire du projet : `cd nom_du_projet`
-3. Exécutez le projet avec Maven : `mvn spring-boot:run`
+### Localement
 
-# l installation a partir du depo dockerhub
-- helm-chart
-- helm install springkafkamockdata ./springkafkamockdata -n default
-- si mettre a jour le chart 
-- helm upgrade springkafkamockdata ./springkafkamockdata -n default
+1. Clonez le dépôt : `git clone https://github.com/dominicpotvin/springkafkamockdata.git`
+2. Naviguez vers le répertoire du projet : `cd springkafkamockdata`
+3. Exécutez le projet avec Maven : `mvn spring-boot:run -Dspring-boot.run.profiles=local`
 
+### Dans Docker
 
-## Comment Utiliser l'Application
+1. Construisez l'image Docker : `docker build -t springkafkamockdata:latest .`
+2. Exécutez le conteneur : `docker run -p 8087:8087 -e SPRING_PROFILES_ACTIVE=local springkafkamockdata:latest`
 
-L'application expose un endpoint POST à `/api/sensor/publish` qui accepte un objet `SensorData` en JSON. Lorsqu'une requête est envoyée à cet endpoint, l'objet `SensorData` est envoyé à un sujet Kafka.
+### Dans Kubernetes avec Helm
+
+1. Assurez-vous que le namespace "develop" existe :
+   ```
+   kubectl create namespace develop
+   ```
+
+2. Naviguez vers le répertoire du chart Helm : `cd helm-chart`
+
+3. Installez le chart :
+   ```
+   helm install springkafkamockdata ./springkafkamockdata -n develop
+   ```
+
+4. Pour mettre à jour le chart :
+   ```
+   helm upgrade springkafkamockdata ./springkafkamockdata -n develop
+   ```
+
+## Vérification du Déploiement
+
+Pour vérifier que l'application est correctement déployée dans le namespace "develop" :
+
+```bash
+kubectl get pods -n develop
+kubectl get services -n develop
+```
+
+## Accès à l'Application
+
+L'application expose un endpoint pour la génération et l'envoi de données de capteurs simulées. Dans un environnement de production, ce processus serait généralement automatisé ou déclenché par un événement spécifique.
+
+## Surveillance et Logs
+
+Pour surveiller les logs de l'application dans Kubernetes :
+
+```bash
+kubectl logs -f <nom-du-pod> -n develop
+```
 
 ## Contribution
 

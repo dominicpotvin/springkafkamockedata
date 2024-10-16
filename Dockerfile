@@ -7,8 +7,8 @@ WORKDIR /app
 # Copie le fichier JAR généré dans le conteneur
 COPY target/springkafkamockdata-*.jar app.jar
 
-# Expose le port de l'application (le même que dans vos configurations)
+# Expose le port de l'application
 EXPOSE 8087
 
-# Commande pour lancer l'application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Commande pour lancer l'application avec profil configurable
+ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=${SPRING_PROFILES_ACTIVE:local}"]

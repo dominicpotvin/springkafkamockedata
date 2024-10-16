@@ -1,7 +1,29 @@
 spring:
+  profiles:
+    active: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
   kafka:
     producer:
-      bootstrap-servers: kafka.default.svc.cluster.local:9092
+      bootstrap-servers: localhost:9092
+      key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+server:
+  port: 8087
+
+---
+spring:
+  config:
+    activate:
+      on-profile: kubernetes
+  kafka:
+    producer:
+      bootstrap-servers: kafka.develop.svc.cluster.local:9092
       key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
